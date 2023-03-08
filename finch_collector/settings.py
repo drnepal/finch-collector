@@ -11,16 +11,28 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
+import os
+
+env = environ.Env(
+    DEBUG = (bool,False)    
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+environ.Env.read_env(os.path.join(BASE_DIR,'.env'))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3uw(b&_*ybfynuq6i^m=@gs&vuhrt6b(skd*e4ne7x0i67g2(_'
+# SECRET_KEY = 'django-insecure-3uw(b&_*ybfynuq6i^m=@gs&vuhrt6b(skd*e4ne7x0i67g2(_'
+SECRET_KEY = env ('SECRET_KEY')
+AWS_ACCESS_KEY= env('AWS_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY= env('AWS_SECRET_ACCESS_KEY')
+S3_BUCKET= env('S3_BUCKET')
+S3_BASE_URL= env('S3_BASE_URL')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -118,6 +130,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+# Add this variable to specify where successful logins should redirect to
+LOGIN_REDIRECT_URL = '/finches/'
+
+# Add this variable to specify where logging out redirects to
+LOGOUT_REDIRECT_URL = '/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

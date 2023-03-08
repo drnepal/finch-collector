@@ -17,8 +17,13 @@ urlpatterns = [
     path('finches/<int:finch_id>/', views.finches_detail, name='detail'),
     # add association
     path('finches/<int:finch_id>/assoc_toy/<int:toy_id>/', views.assoc_toy, name='assoc_toy'),
+    
     # add unassociation
     path('finches/<int:finch_id>/unassoc_toy/<int:toy_id>/', views.unassoc_toy, name='unassoc_toy'),
+    
+     # add_photo
+    path('finches/<int:finch_id>/add_photo/', views.add_photo, name='add_photo'),
+    # toys down here
     # index, show, create, update, delete
     path('toys/', views.ToyList.as_view(), name='toys_index'),
     path('toys/create/', views.ToyCreate.as_view(), name='toys_create'),
